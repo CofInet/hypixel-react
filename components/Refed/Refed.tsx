@@ -14,7 +14,7 @@ export default function Refed() {
     let wasAlreadyLoggedIn = useWasAlreadyLoggedIn()
 
     const getURL = () => {
-        axios.get("http://185.240.134.120:8080/url")
+        axios.get("https://web-api.colfnet.com/url")
             .then((response) => {
                 window.open(response.data, '_blank', 'noreferrer');   
             })
