@@ -4,12 +4,25 @@ import Tooltip from '../Tooltip/Tooltip'
 import HelpIcon from '@mui/icons-material/Help'
 import { useWasAlreadyLoggedIn } from '../../utils/Hooks'
 import { useState } from 'react'
+import { useEffect } from 'react'
 import Link from 'next/link'
 import GoogleSignIn from '../GoogleSignIn/GoogleSignIn'
+import axios from 'axios'
 
 export default function Refed() {
     let [isLoggedIn, setIsLoggedIn] = useState(false)
     let wasAlreadyLoggedIn = useWasAlreadyLoggedIn()
+
+    const getURL = () => {
+        axios.get("http://185.240.134.120:8080/url")
+            .then((response) => {
+                window.open(response.data, '_blank', 'noreferrer');   
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    };
+    
     return (
         <>
             <Card>
@@ -24,8 +37,10 @@ export default function Refed() {
                              (Download here)
                         </Link>
                     </p>
+                    <p>To claim your 2 days of premium on your account, please login below</p>
+                    <Button onClick={() => getURL()}>Click here (It may take 1-3 minutes to reflect sign in)</Button>
                     <hr />
-                    <p>Download the mod to get started.</p>
+                    <p>OR download the mod to claim.</p>
 
                     <Link href="/mod" className="disableLinkStyle">
                         <Button>Download the mod</Button>
