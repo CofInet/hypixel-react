@@ -61,10 +61,10 @@ function ModDetails() {
                                 </g>
                             </svg>
                         </a>
-                        <Button href="https://github.com/coflnet/skyblockmod/releases/latest">
+                        <Button href="https://github.com/CofInet/skyblockmod/releases/latest">
                             Download <DownloadIcon />
                         </Button>
-                        <a href="https://github.com/coflnet/skyblockmod/">
+                        <a href="https://github.com/cofInet/skyblockmod">
                             <Image src="/github_logo.png" alt="Github logo" width="38" height="38" />
                         </a>
                     </div>
