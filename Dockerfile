@@ -1,27 +1,27 @@
-# Stage 1: Build stage
-FROM node:latest AS builder
+# Install dependencies only when needed
+FROM node:20.10.0-bullseye AS deps
 
-# Set working directory
-WORKDIR /app
-
-# Copy package.json and package-lock.json to the working directory
+WORKDIR /opt/app
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+RUN npm ci
 
-# Stage 2: Production stage
-FROM node:latest
+FROM node:20.10.0-bullseye AS builder
 
-# Set working directory
-WORKDIR /app
-
-# Copy only necessary files from the builder stage
-COPY --from=builder /app/node_modules ./node_modules
+ENV NODE_ENV=production
+WORKDIR /opt/app
 COPY . .
+COPY --from=deps /opt/app/node_modules ./node_modules
+RUN npm run build
 
-# Expose the port the application runs on
-EXPOSE 1000
+# Production image, copy all the files and run next
+FROM node:20.10.0-bullseye AS runner
 
-# Define the command to run the application
-CMD [ "node", "app.js" ]
+ARG X_TAG
+WORKDIR /opt/app
+ENV NODE_ENV=production
+COPY --from=builder /opt/app/next.config.js ./
+COPY --from=builder /opt/app/public ./public
+COPY --from=builder /opt/app/.next ./.next
+COPY --from=builder /opt/app/node_modules ./node_modules
+CMD ["node_modules/.bin/next", "start"]
