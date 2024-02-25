@@ -4,7 +4,8 @@ FROM node:20.10.0-bullseye AS deps
 WORKDIR /opt/app
 COPY package*.json ./
 
-RUN npm ci
+# Use npm install instead of npm ci
+RUN npm install
 
 FROM node:20.10.0-bullseye AS builder
 
