@@ -40,7 +40,7 @@ export default function Refed() {
                     <p>To claim your 2 days of premium on your account, please login below</p>
                     <Button onClick={() => getURL()}>Click here (It may take 1-3 minutes to reflect sign in)</Button>
                     <hr />
-                    <p>Download the mod to claim.</p>
+                    <p>OR download the mod to claim.</p>
 
                     <Link href="/mod" className="disableLinkStyle">
                         <Button>Download the mod</Button>
